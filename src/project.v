@@ -16,7 +16,7 @@ module tt_um_counter_example (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  register counter_val[7:0];
+  reg counter_val[7:0] = 8'd0;
 
   always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin // If reset is active (low)
@@ -29,7 +29,7 @@ module tt_um_counter_example (
   //ui_in[0] is the enable input because ena is always on
 
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in[0] ? counter_val : 1'bZ;
+  assign uo_out  = counter_val;//ui_in[0] ? counter_val : 8'bZ;
   
   
 
