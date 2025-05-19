@@ -16,12 +16,27 @@ module tt_um_counter_example (
     input  wire       rst_n     // reset_n - low to reset
 );
 
+  register counter_val[7:0];
+
+  always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin // If reset is active (low)
+      counter_val <= 8'd0; // Reset counter to 0
+    end else begin      // Else, on the rising edge of the clock
+      counter_val <= counter_val + 1; // Increment counter
+    end
+  end
+
+  //ui_in[0] is the enable input because ena is always on
+
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = {ui_in[3:0] + uio_in[3:0], ui_in[7:4] - uio_in[7:4]};  // Example: ou_out is the sum of ui_in and uio_in
+  assign uo_out  = ui_in[0] ? counter_val : 1'bZ;
+  
+  
+
   assign uio_out = 0;
   assign uio_oe  = 0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+  wire _unused = &{ena, 1'b0};
 
 endmodule
