@@ -10,8 +10,8 @@ from cocotb.triggers import ClockCycles
 async def test_project(dut):
     dut._log.info("Start")
 
-    # Set the clock period to 1 us (1 MHz)
-    clock = Clock(dut.clk, 1, units="us")
+    # Set the clock period to 0.1 us (10 MHz)
+    clock = Clock(dut.clk, 0.1, units="us")
     cocotb.start_soon(clock.start())
 
     # Reset
@@ -50,7 +50,7 @@ async def test_project(dut):
     assert dut.uo_out.value == 222
 
     dut.rst_n.value = 0
-    await ClockCycles(dut.clk, 10)
+    await ClockCycles(dut.clk, 2)
     assert dut.uo_out.value == 0
 
     dut.rst_n.value = 1

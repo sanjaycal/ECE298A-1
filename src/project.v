@@ -20,7 +20,7 @@ module tt_um_counter_example (
 
   always @(posedge clk) begin
     if (!rst_n) begin // If reset is active (low)
-      counter_val[7:0] <= 8'd0; // Reset counter to 0
+      counter_val[7:0] <= 0; // Reset counter to 0
     end else begin      // Else, on the rising edge of the clock
       counter_val[7:0] <= counter_val[7:0] + 1; // Increment counter
     end
