@@ -39,7 +39,7 @@ async def test_project(dut):
 
     for i in range(220):
         await ClockCycles(dut.clk, 1)
-        assert dut.uo_out.value == i
+        assert dut.uo_out.value == i + 1
 
     dut.ui_in.value = 0
     await ClockCycles(dut.clk, 1)
@@ -47,7 +47,7 @@ async def test_project(dut):
 
     dut.ui_in.value = 1
     await ClockCycles(dut.clk, 1)
-    assert dut.uo_out.value == 219
+    assert dut.uo_out.value == 220
 
     dut.rst_n.value = 0
     await ClockCycles(dut.clk, 1)
