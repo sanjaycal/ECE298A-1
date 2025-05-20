@@ -16,7 +16,7 @@ module tt_um_counter_example (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  reg counter_val[7:0] = 8'd0;
+  reg [7:0] counter_val = 8'd0;
 
   always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin // If reset is active (low)
