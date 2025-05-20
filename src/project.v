@@ -21,6 +21,8 @@ module tt_um_counter_example (
   always @(posedge clk) begin
     if (!rst_n) begin // If reset is active (low)
       counter_val[7:0] <= 0; // Reset counter to 0
+    end else if (ui_in[1]) begin
+      counter_val[7:0] <= uio_in[7:0];
     end else begin      // Else, on the rising edge of the clock
       counter_val[7:0] <= counter_val[7:0] + 1; // Increment counter
     end
@@ -35,6 +37,6 @@ module tt_um_counter_example (
   assign uio_oe  = 0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, ui_in[6:1], 1'b0};
+  wire _unused = &{ena, ui_in[6:2], 1'b0};
 
 endmodule

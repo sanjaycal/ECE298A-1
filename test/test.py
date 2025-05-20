@@ -57,5 +57,22 @@ async def test_project(dut):
     for i in range(256):
         await ClockCycles(dut.clk, 1)
         assert dut.uo_out.value == i
+
+    dut.rst_n.value = 0
+    await ClockCycles(dut.clk, 2)
+    assert dut.uo_out.value == 0
+
+    dut.rst_n.value = 1
+    dut.uio_in.value = 114
+    dut.ui_in.value = 3
+    await ClockCycles(dut.clk, 2)
+    for i in range(100):
+        await ClockCycles(dut.clk, 1)
+        assert dut.uo_out.value == 114  # should stay at 114
+    dut.ui_in.value = 1
+    for i in range(100):
+        await ClockCycles(dut.clk, 1)
+        assert dut.uo_out.value == 114 + i  # starts at 114 and goes up from there
+
     # Keep testing the module by changing the input values, waiting for
     # one or more clock cycles, and asserting the expected output values.
