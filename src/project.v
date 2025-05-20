@@ -29,7 +29,7 @@ module tt_um_counter_example (
   //ui_in[0] is the enable input because ena is always on
 
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out[7:0] = counter_val[7:0];//ui_in[0] ? counter_val : 8'bZ;
+  assign uo_out[7:0] = ui_in[0] ? counter_val : 8'bZ;
   
   
 
