@@ -28,13 +28,12 @@ module tt_um_counter_example (
 
   //ui_in[0] is the enable input because ena is always on
 
-  // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out[7:0] = ui_in[0] ? counter_val : 8'b0;
+  assign uo_out[7:0] = 8'd0;
   
   
 
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+  assign uio_out = counter_val;
+  assign uio_oe  = {8{ui_in[0]}};
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, ui_in[7:1], 1'b0};
