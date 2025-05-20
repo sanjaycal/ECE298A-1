@@ -27,15 +27,14 @@ module tt_um_counter_example (
   end
 
   //ui_in[0] is the enable input because ena is always on
+  //assume ui_in[7] is a z input because of nonsense design rules forbidding
+  //the creation of a z state
+  assign uo_out[7:0] = ui_in[0] ? counter_val : {8{ui_in[7]}};
 
-  assign uo_out[7:0] = 8'd0;
-  
-  
-
-  assign uio_out = counter_val;
-  assign uio_oe  = {8{ui_in[0]}};
+  assign uio_out = 0;
+  assign uio_oe  = 0;
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, ui_in[7:1], 1'b0};
+  wire _unused = &{ena, ui_in[6:1], 1'b0};
 
 endmodule
